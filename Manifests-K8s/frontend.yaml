@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: quasarcelestio/upchaar:frontend-v2
+        image: quasarcelestio/upchaar:frontend-v2.1
         ports:
         - containerPort: 5173
         resources:
