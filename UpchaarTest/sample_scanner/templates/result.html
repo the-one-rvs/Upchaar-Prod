@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .response {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-size: 25px; /* Increased font size */
+            line-height: 1.5; /* Increased line spacing */
+            word-spacing: 2px; /* Increased word spacing */
+        }
+
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .footer img {
+            height: 50px;
+            vertical-align: middle;
+        }
+
+        .footer span {
+            margin-left: 5px;
+        }
+
+        .download-button {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .download-button a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .download-button a:hover {
+            background-color: #0056b3;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+
+            .response {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Medical Report Review :</h1>
+        <div class="response">{{response|replace('\\n', '<br>')|safe}}</div>
+        
+    </div>
+    <div class="footer">
+        <img src="../static/upchaar_text.png" height="100px" width: "100px" alt="Copyright">
+        <span>@ copyright by Upchaar</span>
+    </div>
+    <div class="download-button">
+        <a href="javascript:window.print()">Download as PDF</a>
+    </div>
+</body>
+</html>

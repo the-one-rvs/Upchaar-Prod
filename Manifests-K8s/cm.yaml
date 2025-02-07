@@ -1,0 +1,10 @@
+apiVersion: v1 
+kind: ConfigMap
+metadata:
+  name: upchaar-config
+  namespace: upchaar
+data:
+  VITE_BACKEND_LINK: "http://backend-service.upchaar.svc.cluster.local:3030"
+  VITE_VIRTUAL_VAIDHYA_LINK: "http://172.19.0.2:30003"
+  VITE_REPORT_SCANNER: "http://172.19.0.2:30004"
+  Virtual_Vaidhya_Link: "http://172.19.0.2:30003"

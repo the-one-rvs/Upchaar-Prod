@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: upchaar
+  labels:
+    app: frontend
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: quasarcelestio/upchaar:frontend-v2
+        ports:
+        - containerPort: 5173
+        resources:
+          requests:
+            cpu: "200m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+        env:
+        - name: VITE_BACKEND_LINK
+          valueFrom:
+            configMapKeyRef:
+              name: upchaar-config
+              key: VITE_BACKEND_LINK
+        - name: VITE_VIRTUAL_VAIDHYA_LINK
+          valueFrom:
+            configMapKeyRef:
+              name: upchaar-config
+              key: VITE_VIRTUAL_VAIDHYA_LINK
+        - name: VITE_REPORT_SCANNER
+          valueFrom:
+            configMapKeyRef:
+              name: upchaar-config
+              key: VITE_REPORT_SCANNER
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+  namespace: upchaar
+spec:
+  type: NodePort
+  selector:
+    app: frontend
+  ports:
+    - protocol: TCP
+      port: 5173
+      targetPort: 5173
+      nodePort: 30001
+

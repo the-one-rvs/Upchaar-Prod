@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+  @font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(/fonts/Roboto.woff2) format('woff2');
+  }
+  @font-face {
+    font-family: 'Output';
+    src: url('../fonts/Outfit-SemiBold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Output';
+    src: url('../fonts/Outfit-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+}
+
+
+:root {
+  --font-sora: "Sora", sans-serif;
+  --font-code: "Source Code Pro", monospace;
+  --font-grotesk: "Space Grotesk", sans-serif;
+
+}
+
+*{
+  font-family: "Outfit",Arial, Helvetica, sans-serif;
+}
+
+html{
+  scroll-behavior: smooth;
+}

@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-scanner
+  namespace: upchaar
+  labels:
+    app: test-scanner
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: test-scanner
+  template:
+    metadata:
+      labels:
+        app: test-scanner
+    spec:
+      containers:
+      - name: test-scanner
+        image: quasarcelestio/upchaar:test_scanner-v1
+        ports:
+        - containerPort: 5050
+        resources:
+          requests:
+            cpu: "200m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+        env:
+        - name: Virtual_Vaidhya_Link
+          valueFrom:
+            configMapKeyRef:
+              name: upchaar-config
+              key: Virtual_Vaidhya_Link
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-scanner-service
+  namespace: upchaar
+spec:
+  type: NodePort
+  selector:
+    app: test-scanner
+  ports:
+    - protocol: TCP
+      port: 5050
+      targetPort: 5050
+      nodePort: 30004

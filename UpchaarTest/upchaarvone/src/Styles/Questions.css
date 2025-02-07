@@ -1,0 +1,27 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .question-container {
+    flex: 1 0 300px; /* Adjust the width of each question container as needed */
+    margin: 10px;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .question-container {
+      flex-basis: calc(50% - 20px); /* Two columns on smaller screens */
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .question-container {
+      flex-basis: calc(100% - 20px); /* Single column on even smaller screens */
+    }
+  }
+  

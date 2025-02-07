@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  backend:
+    image: quasarcelestio/upchaar:backend-v1
+    container_name: backend
+    ports:
+      - "3030:3030"
+    networks:
+      - mynetwork
+
+  virtual_vaidhya:
+    image: quasarcelestio/upchaar:virtual-vaidhya-v1
+    container_name: virtual_vaidhya
+    ports:
+      - "5000:5000"
+    networks:
+      - mynetwork
+
+  test_scanner:
+    image : quasarcelestio/upchaar:test_scanner-v1
+    container_name: test_scanner
+    ports:
+      - "5050:5050"
+    environment:
+      - Virtual_Vaidhya_Link=http://virtual_vaidhya:5000
+      - VITE_PORT=5173 
+
+    networks:
+      - mynetwork
+
+    depends_on:
+      - virtual_vaidhya
+
+  frontend-2:
+    image: quasarcelestio/upchaar:frontend-v2
+    container_name: frontend
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_BACKEND_LINK=http://backend:3030
+      - VITE_VIRTUAL_VAIDHYA_LINK=http://127.0.0.1:5000
+      - VITE_REPORT_SCANNER=http://127.0.0.1:5050
+    networks:
+      - mynetwork
+    depends_on:
+      - backend
+      - virtual_vaidhya
+      - test_scanner
+
+networks:
+  mynetwork:
+    driver: bridge
