@@ -15,7 +15,8 @@ pipeline {
                 git branch: 'master', url: 'https://github.com/the-one-rvs/Upchaar-Prod'
             }
         }
-        stage ('Genrating Complete Code with env'){
+
+        stage('Generating Complete Code with env') {
             steps {
                 sh 'sh env.sh'
             }
@@ -48,13 +49,11 @@ pipeline {
                 expression { return env.CHANGED_SERVICES.contains('frontend') }
             }
             steps {
-                sh "docker build -t quasarcelestio/upchaar:frontend-v2.2 UpchaarTest/upchaarone"
-            }
-            steps {
-                sh "trivy image --exit-code 0 --severity HIGH,CRITICAL quasarcelestio/upchaar:frontend-v2.2 >> trivy-frontend.txt"
-            }
-            steps{
-                sh "docker push quasarcelestio/upchaar:frontend-v2.2"
+                sh """
+                    docker build -t quasarcelestio/upchaar:frontend-v2.2 UpchaarTest/upchaarone
+                    trivy image --exit-code 0 --severity HIGH,CRITICAL quasarcelestio/upchaar:frontend-v2.2 >> trivy-frontend.txt
+                    docker push quasarcelestio/upchaar:frontend-v2.2
+                """
             }
         }
 
@@ -63,13 +62,11 @@ pipeline {
                 expression { return env.CHANGED_SERVICES.contains('test_scanner') }
             }
             steps {
-                sh "docker build -t quasarcelestio/upchaar:test_scanner-v2.2 UpchaarTest/sample_scanner"
-            }
-            steps {
-                sh "trivy image --exit-code 0 --severity HIGH,CRITICAL quasarcelestio/upchaar:test_scanner-v2.2 >> trivy-test_scanner.txt"
-            }
-            steps{
-                sh "docker push quasarcelestio/upchaar:test_scanner-v2.2"
+                sh """
+                    docker build -t quasarcelestio/upchaar:test_scanner-v2.2 UpchaarTest/sample_scanner
+                    trivy image --exit-code 0 --severity HIGH,CRITICAL quasarcelestio/upchaar:test_scanner-v2.2 >> trivy-test_scanner.txt
+                    docker push quasarcelestio/upchaar:test_scanner-v2.2
+                """
             }
         }
 
@@ -78,13 +75,11 @@ pipeline {
                 expression { return env.CHANGED_SERVICES.contains('backend') }
             }
             steps {
-                sh "docker build -t quasarcelestio/upchaar:backend-v2.2 UpchaarTest/backend"
-            }
-            steps {
-                sh "trivy image --exit-code 0 --severity HIGH,CRITICAL quasarcelestio/upchaar:backend-v2.2 >> trivy-backend.txt"
-            }
-            steps{
-                sh "docker push quasarcelestio/upchaar:backend-v2.2"
+                sh """
+                    docker build -t quasarcelestio/upchaar:backend-v2.2 UpchaarTest/backend
+                    trivy image --exit-code 0 --severity HIGH,CRITICAL quasarcelestio/upchaar:backend-v2.2 >> trivy-backend.txt
+                    docker push quasarcelestio/upchaar:backend-v2.2
+                """
             }
         }
 
@@ -93,17 +88,14 @@ pipeline {
                 expression { return env.CHANGED_SERVICES.contains('virtual_vaidhya') }
             }
             steps {
-                sh "docker build -t quasarcelestio/upchaar:virtual-vaidhya-v2.2 UpchaarTest/virtual_vaidhya"
-            }
-            steps{
-                sh "trivy image --exit-code 0 --severity HIGH,CRITICAL quasarcelestio/upchaar:virtual-vaidhya-v2.2 >> trivy-virtual_vaidhya.txt"
-            }
-            steps{
-                sh "docker push quasarcelestio/upchaar:virtual-vaidhya-v2.2"
+                sh """
+                    docker build -t quasarcelestio/upchaar:virtual-vaidhya-v2.2 UpchaarTest/virtual_vaidhya
+                    trivy image --exit-code 0 --severity HIGH,CRITICAL quasarcelestio/upchaar:virtual-vaidhya-v2.2 >> trivy-virtual_vaidhya.txt
+                    docker push quasarcelestio/upchaar:virtual-vaidhya-v2.2
+                """
             }
         }
     }
-
 
     post {
         success {
