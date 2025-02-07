@@ -43,7 +43,7 @@ pipeline {
             steps {
                 sh """
                     docker build -t quasarcelestio/upchaar:frontend-v2.2 UpchaarTest/upchaarone
-                    trivy image --exit-code 0 --severity HIGH,CRITICAL quasarcelestio/upchaar:frontend-v2.2 >> trivy-frontend.txt
+                    trivy image --severity HIGH,CRITICAL quasarcelestio/upchaar:frontend-v2.2 >> trivy-frontend.txt
                     docker push quasarcelestio/upchaar:frontend-v2.2
                 """
             }
@@ -56,7 +56,7 @@ pipeline {
             steps {
                 sh """
                     docker build -t quasarcelestio/upchaar:test_scanner-v2.2 UpchaarTest/sample_scanner
-                    trivy image --exit-code 0 --severity HIGH,CRITICAL quasarcelestio/upchaar:test_scanner-v2.2 >> trivy-test_scanner.txt
+                    trivy image --severity HIGH,CRITICAL quasarcelestio/upchaar:test_scanner-v2.2 >> trivy-test_scanner.txt
                     docker push quasarcelestio/upchaar:test_scanner-v2.2
                 """
             }
@@ -69,7 +69,7 @@ pipeline {
             steps {
                 sh """
                     docker build -t quasarcelestio/upchaar:backend-v2.2 UpchaarTest/backend
-                    trivy image --exit-code 0 --severity HIGH,CRITICAL quasarcelestio/upchaar:backend-v2.2 >> trivy-backend.txt
+                    trivy image --severity HIGH,CRITICAL quasarcelestio/upchaar:backend-v2.2 >> trivy-backend.txt
                     docker push quasarcelestio/upchaar:backend-v2.2
                 """
             }
@@ -82,7 +82,7 @@ pipeline {
             steps {
                 sh """
                     docker build -t quasarcelestio/upchaar:virtual-vaidhya-v2.2 UpchaarTest/virtual_vaidhya
-                    trivy image --exit-code 0 --severity HIGH,CRITICAL quasarcelestio/upchaar:virtual-vaidhya-v2.2 >> trivy-virtual_vaidhya.txt
+                    trivy image --severity HIGH,CRITICAL quasarcelestio/upchaar:virtual-vaidhya-v2.2 >> trivy-virtual_vaidhya.txt
                     docker push quasarcelestio/upchaar:virtual-vaidhya-v2.2
                 """
             }
