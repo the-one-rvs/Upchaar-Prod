@@ -1,14 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        DOCKER_IMAGE = "quasarcelestio/upchaar"
-        DOCKER_TAG = "latest"
-        REGISTRY_CREDENTIALS = "docker-hub-credentials"
-        SONARQUBE_SERVER = "SonarQube"
-        KUBE_CONFIG = credentials('k8s-config')
-    }
-
     stages {
         stage('Clone Repository') {
             steps {
