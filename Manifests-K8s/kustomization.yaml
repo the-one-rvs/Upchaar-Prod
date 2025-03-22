@@ -10,5 +10,5 @@ resources:
   - virtual_vaidhya.yaml
   - test_scanner.yaml
   - frontend.yaml
-  - hpa.yaml
+  # - hpa.yaml
 
